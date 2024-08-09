@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const MongoStore = require('connect-mongo')
 const blogRoutes = require('./routes/blogsRoute');
-const dbUrl = process.env.MONGODB_URI || 'mongodb://localhost:27017/blogpost';
+const dbUrl = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/blogpost';
 const secret = process.env.SECRET || 'secretforblogpost';
 
 mongoose.connect(dbUrl)
@@ -27,7 +27,7 @@ app.use('/blogpost', blogRoutes);
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port} 😀`);
-}); 
+});
 
 
 
