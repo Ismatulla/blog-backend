@@ -9,6 +9,8 @@ const UserAuthSchema = new Schema({
     type: String,
     required: true,
     unique: true,
+    trim: true,
+    lowercase: true,
   },
   password: {
     type: String,
@@ -18,9 +20,19 @@ const UserAuthSchema = new Schema({
   username: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    trim: true,
   },
-})
+
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  updateAt: {
+    type: Date,
+    default: Date.now
+  },
+}, { timestamps: true })
 // static methods
 UserAuthSchema.statics.signup = async function (email, password, username, confirmPassword) {
   const existEmail = await this.findOne({ email })
@@ -48,7 +60,7 @@ UserAuthSchema.statics.signup = async function (email, password, username, confi
   if (existUsername) {
     throw Error('Username already exist')
   }
-  
+
   // encrypt password
   const salt = await bcrypt.genSalt(10)
   const hash = await bcrypt.hash(password, salt)
@@ -72,4 +84,4 @@ UserAuthSchema.statics.login = async function (email, password) {
   }
   return user
 }
-module.exports = mongoose.model('auth', UserAuthSchema)
+module.exports = mongoose.model('User', UserAuthSchema)
