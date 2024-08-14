@@ -66,7 +66,7 @@ UserAuthSchema.statics.signup = async function (email, password, username, confi
   const hash = await bcrypt.hash(password, salt)
 
   const user = await this.create({ email, password: hash, username })
-  return user
+  await user.save()
 }
 
 UserAuthSchema.statics.login = async function (email, password) {

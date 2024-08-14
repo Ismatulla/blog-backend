@@ -1,5 +1,5 @@
 
-const Auth = require('../models/userSchema');
+const User = require('../models/userSchema');
 const jwt = require('jsonwebtoken');
 
 const secretKey = process.env.SECRET_KEY;
@@ -9,7 +9,7 @@ const generateToken = (id) => {
 module.exports.login = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = await Auth.login(email, password);
+    const user = await User.login(email, password);
     const token = generateToken(user._id)
     res.status(200).json({ email, token })
   } catch (error) {
@@ -20,9 +20,9 @@ module.exports.login = async (req, res) => {
 module.exports.register = async (req, res) => {
   const { email, password, username, confirmPassword } = req.body;
   try {
-    const user = await Auth.signup(email, password, username, confirmPassword);
+    const user = await User.signup(email, password, username, confirmPassword);
     const token = generateToken(user._id)
-    res.status(200).json({ email, token })
+    res.status(201).json({ email, token })
   } catch (error) {
     res.status(400).json({ error: error.message })
   }
