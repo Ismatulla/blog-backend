@@ -21,9 +21,13 @@ module.exports.register = async (req, res) => {
   const { email, password, username, confirmPassword } = req.body;
   try {
     const user = await User.signup(email, password, username, confirmPassword);
+    if (!user) {
+      return res.status(400).json({ error: 'User creation failed' });
+    }
     const token = generateToken(user._id)
     res.status(201).json({ email, token })
   } catch (error) {
+    console.log('Registration error', error)
     res.status(400).json({ error: error.message })
   }
 }

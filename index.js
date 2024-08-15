@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const MongoStore = require('connect-mongo')
 const blogRoutes = require('./routes/blogsRoute');
-const dbUrl = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/blogs';
+const dbUrl = 'mongodb://127.0.0.1:27017/blog-backend';
 const secret = process.env.SECRET || 'secretforblogpost';
 
 mongoose.connect(dbUrl)

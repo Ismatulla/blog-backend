@@ -65,8 +65,16 @@ UserAuthSchema.statics.signup = async function (email, password, username, confi
   const salt = await bcrypt.genSalt(10)
   const hash = await bcrypt.hash(password, salt)
 
-  const user = await this.create({ email, password: hash, username })
-  await user.save()
+  try {
+    const user = await this.create({ email, password: hash, username })
+    console.log(user, 'user created')
+    return user
+  } catch (error) {
+    console.log(error, 'error created')
+    throw Error(error)
+  }
+
+
 }
 
 UserAuthSchema.statics.login = async function (email, password) {
