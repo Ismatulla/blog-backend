@@ -67,7 +67,6 @@ UserAuthSchema.statics.signup = async function (email, password, username, confi
 
   try {
     const user = await this.create({ email, password: hash, username })
-    console.log(user, 'user created')
     return user
   } catch (error) {
     console.log(error, 'error created')
