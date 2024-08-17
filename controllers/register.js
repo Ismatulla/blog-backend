@@ -1,8 +1,8 @@
 
 const User = require('../models/userSchema');
 const jwt = require('jsonwebtoken');
-
 const secretKey = process.env.SECRET_KEY;
+
 const generateToken = (id) => {
   return jwt.sign({ id }, secretKey, { expiresIn: '3d' })
 }
