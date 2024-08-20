@@ -25,7 +25,17 @@ module.exports.register = async (req, res) => {
       return res.status(400).json({ error: 'User creation failed' });
     }
     const token = generateToken(user._id)
-    res.status(201).json({ email, token })
+    res.status(201).json({
+      status: 'success',
+      message: 'User registered successfully',
+      data: {
+        user,
+        token,
+      },
+      headers: req.headers,
+      responseStatus: res.statusCode,
+      timestamp: new Date().toISOString(),
+    });
   } catch (error) {
     console.log('Registration error', error)
     res.status(400).json({ error: error.message })
