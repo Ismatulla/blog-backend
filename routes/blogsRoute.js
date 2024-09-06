@@ -8,10 +8,9 @@ const auths = require('../middleware/userMiddleware')
 router.post('/login', auth.login);
 router.post('/register', auth.register);
 
-router.get('/test', auths, (req, res) => {
-  res.send('test');
-})
+
 router.post('/createPost', auths, blog.createPost);
+router.get('/posts', auths, blog.getAllPosts);
 router.post('/:postId/createComment', auths, createComment.createComment);
 router.post('/likeComment/:commentId', auths, createComment.likeComment);
 router.post('/dislikeComment/:commentId', auths, createComment.dislikeComment);
